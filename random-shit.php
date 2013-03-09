@@ -163,7 +163,7 @@ function bypass($link){
         if(strpos($get, "Location:")){
                 preg_match_all('/Location: (.*?)\\r\\n/', $get, $out);
                 return $out[1][0];
-        }elseif(preg_match('/http(s?):\/\/(www\.)?(q.gs|adf.ly)\/.*/', $link) ){
+        }elseif(preg_match('/http(s?):\/\/(www\.)?(q.gs|adf.ly|j.gs)\/.*/', $link) ){
                 preg_match_all('/var zzz \= \'(.*?)\'\;/', $get, $out);
                 return $out[1][0];
         }elseif(preg_match('/http(s?):\/\/(www\.)?.*\.(linkbucks.com|tinybucks.net)/', $link) ){
