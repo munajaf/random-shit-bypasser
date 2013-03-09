@@ -199,6 +199,9 @@ function bypass($link){
         }elseif(preg_match('/http(s?):\/\/ad7\.biz\/.*/', $link)){
                 preg_match_all('/border\=0 src\=\"(.*)&url\=(.*)&ref\=/', $get, $out);
                 return $out[2][0];
+        }elseif(preg_match('/t\.co/i', $link)){
+                preg_match('/content="0;URL=(.*?)"/i', $get, $out);
+                return $out[1];
         }else{
                 return false;
         }
