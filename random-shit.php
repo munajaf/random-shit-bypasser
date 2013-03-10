@@ -121,7 +121,7 @@ if(isset($_POST['urllist']) && !empty($_POST['urllist'])){
 
 echo "<br /><br /><br />";
 # -- Count Random Shit Bypassed -- #
-if ($CounT) echo "<center><div class='foot'>Number Of SHIT Bypassed on ".$_SERVER["HTTP_HOST"]." is <b><u>".countLink()."</u></b></div></center>";
+if ($CounT) echo "<center><div class='foot'>Number Of SHIT Bypassed on ".htmlentities($_SERVER["HTTP_HOST"], ENT_QUOTES, "utf-8")." is <b><u>".countLink()."</u></b></div></center>";
 
 function countLink()
 {
@@ -209,7 +209,7 @@ function bypass($link){
  
 function check($url){
         $ch=curl_init();
-        curl_setopt($ch,CURLOPT_URL,$url );
+        curl_setopt($ch,CURLOPT_URL, $url);
         curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch,CURLOPT_VERBOSE,false);
         curl_setopt($ch,CURLOPT_TIMEOUT, 1);
@@ -227,7 +227,7 @@ function curl($url, $post = ""){
         $ch = @curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 1);
-        curl_setopt($ch, CURLOPT_USERAGENT, base64_decode('TW96aWxsYS81LjAgKFdpbmRvd3MgTlQgNi4xKSBBcHBsZVdlYktpdC81MzcuMjggKEtIVE1MLCBsaWt?????lIEdlY2tvKSBDaHJvbWUvMjYuMC4xMzk3LjIgU2FmYXJpLzUzNy4yOA=='));
+        curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.28 (KHTML, like Gecko) Chrome/26.0.1397.2 Safari/537.28");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
