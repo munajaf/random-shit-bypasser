@@ -121,7 +121,7 @@ if(isset($_POST['urllist']) && !empty($_POST['urllist'])){
 
 echo "<br /><br /><br />";
 # -- Count Random Shit Bypassed -- #
-if ($CounT) echo "<center><div class='foot'>Number Of SHIT Bypassed on ".$_SERVER["HTTP_HOST"]." is <b><u>".countLink()."</u></b></div></center>";
+if ($CounT) echo "<center><div class='foot'>Number Of SHIT Bypassed on ".htmlentities($_SERVER["HTTP_HOST"], ENT_QUOTES, "utf-8")." is <b><u>".countLink()."</u></b></div></center>";
 
 function countLink()
 {
@@ -209,7 +209,7 @@ function bypass($link){
  
 function check($url){
         $ch=curl_init();
-        curl_setopt($ch,CURLOPT_URL,$url );
+        curl_setopt($ch,CURLOPT_URL, $url);
         curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch,CURLOPT_VERBOSE,false);
         curl_setopt($ch,CURLOPT_TIMEOUT, 1);
