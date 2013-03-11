@@ -85,7 +85,7 @@ if(isset($_POST['urllist']) && !empty($_POST['urllist'])){
             if($exp === "ShitHappen1"){
                 echo '<tr><th><font class="number">'.$i++.'</font></th><th>&nbsp;&nbsp;&nbsp;<font class="shittendstohappen">Can\'t bypass that link!</font>&nbsp;&nbsp;</th></tr>';
             }
-            elseif($exp === "ShitHappen2"){
+            elseif(strpos(strtolower(urldecode($exp)), "javascript:") || $exp === "ShitHappen2"){
                 echo '<tr><th><font class="number">'.$i++.'</font></th><th>&nbsp;&nbsp;&nbsp;<font class="shittendstohappen">Link provide is offline or not exist!</font>&nbsp;&nbsp;</th></tr>';
             }else{
                 /*if(strpos(strtolower(urldecode($exp)), "javascript:")){
