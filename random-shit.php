@@ -85,7 +85,9 @@ if(isset($_POST['urllist']) && !empty($_POST['urllist'])){
             if($exp === "ShitHappen1"){
                 echo '<tr><th><font class="number">'.$i++.'</font></th><th>&nbsp;&nbsp;&nbsp;<font class="shittendstohappen">Can\'t bypass that link!</font>&nbsp;&nbsp;</th></tr>';
             }
-            elseif(strpos(strtolower(urldecode($exp)), "javascript:") || $exp === "ShitHappen2"){
+			// kalau $exp return javascript:alert(1);
+			// strpos akan return int(0) sebab javascript position number 0 pada string tersebut dan dalam php; jikalau kita compare ==0 sama maksud macam kita compare ==false, jadi untuk letak kekeliruan se-eloknya guna !== false untuk compare same data-type.
+            elseif(strpos(strtolower(urldecode($exp)), "javascript:") !== false || $exp === "ShitHappen2"){
                 echo '<tr><th><font class="number">'.$i++.'</font></th><th>&nbsp;&nbsp;&nbsp;<font class="shittendstohappen">Link provide is offline or not exist!</font>&nbsp;&nbsp;</th></tr>';
             }else{
                 /*if(strpos(strtolower(urldecode($exp)), "javascript:")){
