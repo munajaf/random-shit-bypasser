@@ -21,10 +21,21 @@
 *     - http://adfa.st/M12w
 *     - http://iic.my/z
 *
+* 1.4 - new linkbucks domain (theseblogs.com)
+*     - http://68ba306b.theseblogs.com
+*
+* 1.5 - Add New ADF.LY Bypass Algorithm (Credit to Personant)
+*     - My personal message to Adf.ly -> "You mad adf ? You wasted lot of money to created
+*                                         that useless protection and somebody already
+*                                         created a method to bypass it."
+*       By the way, Personant created this function long time ago, only me too lazy to implement it...
+*
 * 1.0 - 15/2/2013
 * 1.1 - 17/2/2013
 * 1.2 - 18/2/2013
 * 1.3 - 21/2/2013
+* 1.4 - 06/7/2013
+* 1.5 - 04/10/2013
 */
 
 $CounT = true; //set this to true if you want it to count the link have been skiped, " else " put it false
@@ -39,7 +50,7 @@ if(!in_array("curl", @get_loaded_extensions()))
 }
 
 ?>
-<title>Random Shit Bypasser 1.3</title>
+<title>Random Shit Bypasser 1.5</title>
 <style>
 @import url(http://fonts.googleapis.com/css?family=Fredoka+One);@import url(http://fonts.googleapis.com/css?family=Alike);
 body {background:url('http://goo.gl/ZHzmP'); font: 75%/170% Arial, Helvetica, sans-serif;}
@@ -143,7 +154,7 @@ function get($link){
         if(check($link)){
                 $first = bypass($link);
                 if($first !== false){
-                        for($i = 0;$i<100;$i++){
+                        for(;;){
                                 $test = bypass($first);
                                 if($test === false){
                                         break;
@@ -169,6 +180,9 @@ function bypass($link){
                 preg_match_all('/var zzz \= \'(.*?)\'\;/', $get, $out);
                 return $out[1][0];
         }elseif(preg_match('/http(s?):\/\/(www\.)?.*\.(linkbucks.com|tinybucks.net)/', $link) ){
+                preg_match_all('/var ysmm \= \'(.*?)\'\;/', $get, $out);
+                return adfly_decode($out[1][0]);
+        }elseif(preg_match('/http(s?):\/\/(www\.)?.*\.(linkbucks.com|tinybucks.net|theseblogs.com)/', $link) ){
                 preg_match_all('/Lbjs\.TargetUrl \= \'(.*?)\'/', $get, $out);
                 return $out[1][0];
         }elseif(preg_match('/http(s?):\/\/(www\.)?go\.urlcash\.net\/.*/', $link)){
@@ -210,39 +224,46 @@ function bypass($link){
 }
  
 function check($url){
-        $ch=curl_init();
-        curl_setopt($ch,CURLOPT_URL, $url);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch,CURLOPT_VERBOSE,false);
-        curl_setopt($ch,CURLOPT_TIMEOUT, 1);
-        curl_setopt($ch,CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($ch,CURLOPT_SSLVERSION,3);
-        curl_setopt($ch,CURLOPT_SSL_VERIFYHOST, FALSE);
-        $page=curl_exec($ch);
-        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-        if($httpcode>=200 && $httpcode<402) return true;
-        else return false;
+  $ch=curl_init();
+  curl_setopt($ch,CURLOPT_URL, $url);
+  curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($ch,CURLOPT_VERBOSE,false);
+  curl_setopt($ch,CURLOPT_TIMEOUT, 1);
+  curl_setopt($ch,CURLOPT_SSL_VERIFYPEER, FALSE);
+  curl_setopt($ch,CURLOPT_SSLVERSION,3);
+  curl_setopt($ch,CURLOPT_SSL_VERIFYHOST, FALSE);
+  $page=curl_exec($ch);
+  $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+  curl_close($ch);
+  if($httpcode>=200 && $httpcode<402) return true;
+  else return false;
 }
  
 function curl($url, $post = ""){
-        $ch = @curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HEADER, 1);
-        curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.28 (KHTML, like Gecko) Chrome/26.0.1397.2 Safari/537.28");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt ($ch, CURLOPT_HTTPHEADER, array('Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'));
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        if($post){
-                curl_setopt($ch, CURLOPT_POST, 1);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-        }
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
-        $page = curl_exec( $ch);
-        curl_close($ch);
-        return $page;
+  $ch = @curl_init();
+  curl_setopt($ch, CURLOPT_URL, $url);
+  curl_setopt($ch, CURLOPT_HEADER, 1);
+  curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.28 (KHTML, like Gecko) Chrome/26.0.1397.2 Safari/537.28");
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+  curl_setopt ($ch, CURLOPT_HTTPHEADER, array('Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'));
+  curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+  if($post){
+          curl_setopt($ch, CURLOPT_POST, 1);
+          curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+  }
+  curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
+  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
+  $page = curl_exec( $ch);
+  curl_close($ch);
+  return $page;
 }
- ?>
+
+function adfly_decode($code){
+  $chunk1 = $chunk2 = '';
+  for($i = 0; $i < strlen($code); $i++) $i&1 ? $chunk1 = $code[$i].$chunk1 : $chunk2 .= $code[$i];
+  return substr(base64_decode($chunk2.$chunk1), 2);
+}
+
+?>
