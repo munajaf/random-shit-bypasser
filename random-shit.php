@@ -177,9 +177,6 @@ function bypass($link){
                 preg_match_all('/Location: (.*?)\\r\\n/', $get, $out);
                 return $out[1][0];
         }elseif(preg_match('/http(s?):\/\/(www\.)?(q.gs|adf.ly|j.gs|u.bb)\/.*/', $link) ){
-                preg_match_all('/var zzz \= \'(.*?)\'\;/', $get, $out);
-                return $out[1][0];
-        }elseif(preg_match('/http(s?):\/\/(www\.)?.*\.(linkbucks.com|tinybucks.net)/', $link) ){
                 preg_match_all('/var ysmm \= \'(.*?)\'\;/', $get, $out);
                 return adfly_decode($out[1][0]);
         }elseif(preg_match('/http(s?):\/\/(www\.)?.*\.(linkbucks.com|tinybucks.net|theseblogs.com)/', $link) ){
